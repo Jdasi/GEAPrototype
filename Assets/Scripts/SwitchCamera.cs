@@ -12,15 +12,17 @@ public class SwitchCamera : MonoBehaviour
 		Camera2.enabled = false;
 	}
 
-	void OnTriggerEnter2D()
+	void OnCollisionEnter2D(Collision2D Collider1)
 	{
-		Camera1.enabled = false;
-		Camera2.enabled = true;
-	}
-
-	void OnTriggerExit2D()
-	{
-		Camera1.enabled = true;
-		Camera2.enabled = false;
+		if (Collider1.gameObject.tag == "FirstLevel") 
+		{
+			Camera1.enabled = true;
+			Camera2.enabled = false;
+		}
+		if (Collider1.gameObject.tag == "SecondLevel") 
+		{
+			Camera1.enabled = false;
+			Camera2.enabled = true;
+		}
 	}
 }
