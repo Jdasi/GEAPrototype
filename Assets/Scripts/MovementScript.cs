@@ -20,7 +20,8 @@ public class MovementScript : MonoBehaviour
     }
 
     void Update()
-    {  
+    {
+        
         if (parented_rope)
         {
             transform.position = Vector3.MoveTowards(transform.position, parented_rope.transform.position, 1);
@@ -30,6 +31,7 @@ public class MovementScript : MonoBehaviour
         {
             transform.position += transform.right * Input.GetAxis(axisName) * speed * Time.deltaTime;
         }
+
     }
 
     void OnCollisionStay2D(Collision2D coll)
@@ -66,7 +68,7 @@ public class MovementScript : MonoBehaviour
         {
             parented_rope = rope;
             transform.SetParent(rope.transform);
-            rigid_body.gravityScale = 0;
+            rigid_body.gravityScale = 1;
             on_rope = false;
         }
     }
