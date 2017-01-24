@@ -8,20 +8,34 @@ public class MovementScript : MonoBehaviour
 	public Animator anim;
 	public bool OnGround;
 
-	// Use this for initialization
-	void Start () 
+    public bool on_rope = false;
+    private GameObject parented_rope;
+
+    private Rigidbody2D rigid_body;
+
+	void Start() 
 	{
-		anim = gameObject.GetComponent<Animator> ();
+		anim = GetComponent<Animator>();
+        rigid_body = GetComponent<Rigidbody2D>();
 	}
 
 	void Update()
-	{  
-
+    {  
+        if (parented_rope)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, parented_rope.transform.position, 1);
+            parented_rope.GetComponent<Rigidbody2D>().AddForce(new Vector2(5 * Input.GetAxis(axisName), 0));
+        }
+        else
+        {
+            transform.position += transform.right * Input.GetAxis(axisName) * speed * Time.deltaTime;
+        }
 	}
 
 	void OnCollisionStay2D(Collision2D coll)
 	{
 		OnGround = true;
+
 		if (OnGround == true)
 		{
 			if (Input.GetKeyDown (KeyCode.Space)) 
@@ -39,23 +53,21 @@ public class MovementScript : MonoBehaviour
 		}
 	}
 
-	// Update is called once per frame
-	void FixedUpdate () 
-	{
-		if (Input.GetAxis (axisName) < 0)
-		{
-			Vector3 newScale = transform.localScale;
-			newScale.y = 1.0f;
-			newScale.x = 1.0f;
-			transform.localScale = newScale;
-		} 
-		else if (Input.GetAxis (axisName) > 0)
-		{
-			Vector3 newScale =transform.localScale;
-			newScale.x = 1.0f;
-			transform.localScale = newScale;        
-		}
-
-		transform.position += transform.right *Input.GetAxis(axisName)* speed * Time.deltaTime;
-	}
+    public void setParentedRope(GameObject rope)
+    {
+        if (rope)
+        {
+            parented_rope = rope;
+            transform.SetParent(rope.transform);
+            rigid_body.gravityScale = 0;
+            on_rope = true;
+        }
+        else
+        {
+            parented_rope = rope;
+            transform.SetParent(rope.transform);
+            rigid_body.gravityScale = 0;
+            on_rope = false;
+        }
+    }
 }
