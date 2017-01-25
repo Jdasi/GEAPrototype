@@ -6,11 +6,13 @@ public class MovementScript : MonoBehaviour
     public float walk_speed = 1.0f;
     public float climb_speed = 1.0f;
 
+    public float jump_force = 3.0f;
+
     public string horizontal_axis = "Horizontal";
     public string vertical_axis = "Vertical";
 
     public Animator anim;
-    public bool OnGround;
+    public bool on_ground;
 
     public bool on_rope = false;
     private GameObject parented_rope;
@@ -44,6 +46,7 @@ public class MovementScript : MonoBehaviour
             if (Input.GetAxis(vertical_axis) != 0)
             {
                 on_ladder = true;
+                rigid_body.velocity = Vector2.zero;
             }
         }
         else
@@ -61,26 +64,12 @@ public class MovementScript : MonoBehaviour
             rigid_body.gravityScale = 1;
         }
 
-    }
-
-    void OnCollisionStay2D(Collision2D coll)
-    {
-        OnGround = true;
-
-        if (OnGround == true)
+        if (on_ground && !on_ladder)
         {
-            if (Input.GetKeyDown (KeyCode.Space)) 
-            {  //makes player jump
-                GetComponent<Rigidbody2D> ().AddForce (new Vector2 (0, 3), ForceMode2D.Impulse);
+            if (Input.GetKeyDown(KeyCode.Space)) 
+            {
+                GetComponent<Rigidbody2D>().AddForce(new Vector2 (0, jump_force), ForceMode2D.Impulse);
             }
-        }
-    }
-
-    void OnCollisionExit2D(Collision2D coll)
-    {
-        if (OnGround) 
-        {
-            OnGround = false;
         }
     }
 

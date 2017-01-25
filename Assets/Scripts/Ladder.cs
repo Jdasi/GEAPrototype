@@ -7,7 +7,7 @@ public class Ladder : MonoBehaviour
 
 	void Start()
     {
-	    player = GameObject.FindGameObjectWithTag("Player").GetComponent<MovementScript>();
+	    player = GameObject.Find("Player").GetComponent<MovementScript>();
 	}
 	
 	void Update()

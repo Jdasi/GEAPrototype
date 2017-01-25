@@ -8,7 +8,7 @@ public class RopeScript : MonoBehaviour
 
 	void Start()
     {
-	    player = GameObject.FindGameObjectWithTag("Player");
+	    player = GameObject.Find("Player");
         movement_script = player.GetComponent<MovementScript>();
 
         GetComponent<Rigidbody2D>().AddForce(new Vector2(5, 0));
