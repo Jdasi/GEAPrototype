@@ -25,7 +25,7 @@ public class MovementScript : MonoBehaviour
         if (parented_rope)
         {
             transform.position = Vector3.MoveTowards(transform.position, parented_rope.transform.position, 1);
-            parented_rope.GetComponent<Rigidbody2D>().AddForce(new Vector2(5 * Input.GetAxis(axisName), 0));
+            parented_rope.GetComponent<Rigidbody2D>().AddForce(new Vector2(50f * Input.GetAxis(axisName), 0));
         }
         else
         {
