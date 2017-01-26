@@ -92,7 +92,11 @@ public class MovementScript : MonoBehaviour
         }
         else
         {
-            transform.SetParent(null);
+            if (on_rope)
+            {
+                transform.SetParent(null);
+            }
+
             rigid_body.constraints = RigidbodyConstraints2D.FreezeRotation;
 
             on_rope = false;
