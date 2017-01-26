@@ -4,6 +4,7 @@ using System.Collections;
 public class Rope : MonoBehaviour
 {
     private MovementScript player;
+    private Rigidbody2D player_rigid_body;
 
 	void Start()
     {

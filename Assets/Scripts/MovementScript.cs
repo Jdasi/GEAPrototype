@@ -41,6 +41,8 @@ public class MovementScript : MonoBehaviour
 
         if (!on_rope)
         {
+            rigid_body.isKinematic = false;
+
             transform.position += transform.right * Input.GetAxis(horizontal_axis) * walk_speed * Time.deltaTime;
         }
 
@@ -49,6 +51,8 @@ public class MovementScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space)) 
             {
                 on_rope = false;
+                rigid_body.isKinematic = false;
+
                 rigid_body.gravityScale = 1;
                 GetComponent<Rigidbody2D>().AddForce(new Vector2 (0, jump_force), ForceMode2D.Impulse);
             }
@@ -84,7 +88,6 @@ public class MovementScript : MonoBehaviour
             if (Input.GetAxis(vertical_axis) != 0)
             {
                 transform.SetParent(rope_in_reach.transform);
-                rigid_body.constraints = RigidbodyConstraints2D.None;
 
                 on_rope = true;
                 rigid_body.velocity = Vector2.zero;
@@ -97,8 +100,6 @@ public class MovementScript : MonoBehaviour
                 transform.SetParent(null);
             }
 
-            rigid_body.constraints = RigidbodyConstraints2D.FreezeRotation;
-
             on_rope = false;
             transform.rotation = Quaternion.Euler(Vector3.zero);
         }
@@ -106,6 +107,8 @@ public class MovementScript : MonoBehaviour
         if (on_rope)
         {
             rigid_body.gravityScale = 0;
+            rigid_body.isKinematic = true;
+
             rope_in_reach.GetComponent<Rigidbody2D>().AddForce(new Vector2(swing_force * Input.GetAxis(horizontal_axis), 0));
             transform.position += transform.up * Input.GetAxis(vertical_axis) * climb_speed * Time.deltaTime;
         }
