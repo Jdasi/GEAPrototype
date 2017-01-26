@@ -7,6 +7,7 @@ public class MovementScript : MonoBehaviour
     public float climb_speed = 1.0f;
 
     public float jump_force = 3.0f;
+    public float swing_force = 50.0f;
 
     public string horizontal_axis = "Horizontal";
     public string vertical_axis = "Vertical";
@@ -14,8 +15,8 @@ public class MovementScript : MonoBehaviour
     public Animator anim;
     public bool on_ground;
 
-    public bool on_rope = false;
-    private GameObject parented_rope;
+    public GameObject rope_in_reach = null;
+    private bool on_rope = false;
 
     public bool ladder_in_reach = false;
     private bool on_ladder = false;
@@ -30,17 +31,32 @@ public class MovementScript : MonoBehaviour
 
     void Update()
     {
-        
-        if (parented_rope)
+        ladder_movement();
+        rope_movement();
+
+        if (!on_ladder && !on_rope)
         {
-            transform.position = Vector3.MoveTowards(transform.position, parented_rope.transform.position, 1);
-            parented_rope.GetComponent<Rigidbody2D>().AddForce(new Vector2(50f * Input.GetAxis(horizontal_axis), 0));
+            rigid_body.gravityScale = 1;
         }
-        else
+
+        if (!on_rope)
         {
             transform.position += transform.right * Input.GetAxis(horizontal_axis) * walk_speed * Time.deltaTime;
         }
 
+        if ((on_ground && !on_ladder) || on_rope)
+        {
+            if (Input.GetKeyDown(KeyCode.Space)) 
+            {
+                on_rope = false;
+                rigid_body.gravityScale = 1;
+                GetComponent<Rigidbody2D>().AddForce(new Vector2 (0, jump_force), ForceMode2D.Impulse);
+            }
+        }
+    }
+
+    void ladder_movement()
+    {
         if (ladder_in_reach)
         {
             if (Input.GetAxis(vertical_axis) != 0)
@@ -59,35 +75,35 @@ public class MovementScript : MonoBehaviour
             rigid_body.gravityScale = 0;
             transform.position += transform.up * Input.GetAxis(vertical_axis) * climb_speed * Time.deltaTime;
         }
-        else
-        {
-            rigid_body.gravityScale = 1;
-        }
-
-        if (on_ground && !on_ladder)
-        {
-            if (Input.GetKeyDown(KeyCode.Space)) 
-            {
-                GetComponent<Rigidbody2D>().AddForce(new Vector2 (0, jump_force), ForceMode2D.Impulse);
-            }
-        }
     }
 
-    public void setParentedRope(GameObject rope)
+    void rope_movement()
     {
-        if (rope)
+        if (rope_in_reach)
         {
-            parented_rope = rope;
-            transform.SetParent(rope.transform);
-            rigid_body.gravityScale = 0;
-            on_rope = true;
+            if (Input.GetAxis(vertical_axis) != 0)
+            {
+                transform.SetParent(rope_in_reach.transform);
+                rigid_body.constraints = RigidbodyConstraints2D.None;
+
+                on_rope = true;
+                rigid_body.velocity = Vector2.zero;
+            }
         }
         else
         {
-            parented_rope = rope;
-            transform.SetParent(rope.transform);
-            rigid_body.gravityScale = 1;
+            transform.SetParent(null);
+            rigid_body.constraints = RigidbodyConstraints2D.FreezeRotation;
+
             on_rope = false;
+            transform.rotation = Quaternion.Euler(Vector3.zero);
+        }
+
+        if (on_rope)
+        {
+            rigid_body.gravityScale = 0;
+            rope_in_reach.GetComponent<Rigidbody2D>().AddForce(new Vector2(swing_force * Input.GetAxis(horizontal_axis), 0));
+            transform.position += transform.up * Input.GetAxis(vertical_axis) * climb_speed * Time.deltaTime;
         }
     }
 }
