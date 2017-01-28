@@ -7,6 +7,7 @@ public class Collectibles : MonoBehaviour {
 
     private int collectibles, hundreds, tens, units;
     public Text collectiblesText;
+
 	void Start () {
         collectibles = 0;
         hundreds = 0;
@@ -17,7 +18,7 @@ public class Collectibles : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	}
+    }
 
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -38,9 +39,9 @@ public class Collectibles : MonoBehaviour {
                         hundreds++;
                     }
                 }
-                updateCountText();
             }
         }
+        updateCountText();
     }
 
     void updateCountText()
