@@ -13,11 +13,10 @@ public class HUD : MonoBehaviour {
     public float elapsed;
 
     public GameObject[] livesSprites;
-    public int lives;
+    private playerStats player_stats;
 
-    // Use this for initialization
-    void Start () {
-        lives = 7;
+    void Start()
+    {
         hours = 7;
         minutesTens = 0;
         minutes = 0;
@@ -25,43 +24,55 @@ public class HUD : MonoBehaviour {
         timeFrame = 0;
         displayTime();
         elapsed = 0;
+
+        player_stats = GameObject.Find("Player").GetComponent<playerStats>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
-
-        if(livesSprites[lives] != null)
-        {
-            Destroy(livesSprites[lives]);
-        }
-
+	void Update()
+    {
         elapsed += (Time.deltaTime);
-        if(elapsed >= 3)
-        {
-            if (lives > 0)
-                lives--;
 
-                minutes++;
-                elapsed = 0;
+
+
+        updateTime();
+        displayTime();
+    }
+
+    void OnGUi()
+    {
+
+    }
+
+    void updateTime()
+    {
+        if (elapsed >= 3)
+        {
+            minutes++;
+            elapsed = 0;
+
             if (minutes == 10)
             {
                 minutes = 0;
                 minutesTens++;
             }
-            if(minutesTens == 6)
+
+            if (minutesTens == 6)
             {
                 minutesTens = 0;
                 hours++;
             }
-            if(hours >= 13)
+
+            if (hours >= 13)
             {
                 hours = 1;
+
                 if (timeFrame == 0)
                 {
                     timeAbberivation = "pm";
                     timeFrame = 1;
                     return;
                 }
+
                 if (timeFrame == 1)
                 {
                     timeAbberivation = "am";
@@ -70,11 +81,6 @@ public class HUD : MonoBehaviour {
                 }
             }
         }
-        displayTime();
-    }
-
-    void OnGUi()
-    {
     }
 
     void displayTime()
