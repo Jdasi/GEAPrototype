@@ -33,7 +33,7 @@ public class HUD : MonoBehaviour {
         timeFrame = 0;
         displayTime();
         elapsed = 0;
-        secondsPerMinute = 60;
+        secondsPerMinute = 6;
         displayColon = true;
 
         player_stats = GameObject.Find("Player").GetComponent<playerStats>();
@@ -134,11 +134,9 @@ public class HUD : MonoBehaviour {
     string collectiblesToString()
     {
         string str = "";
-
         str += (player_stats.getCollectibles() / 100).ToString();
         str += (player_stats.getCollectibles() / 10).ToString();
         str += (player_stats.getCollectibles() / 1).ToString();
-
         return str;
     }
 }
