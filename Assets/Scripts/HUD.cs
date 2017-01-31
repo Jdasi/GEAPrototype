@@ -56,9 +56,10 @@ public class HUD : MonoBehaviour {
 
     void updateLives()
     {
-    if(livesSprites[player_stats.getLives()].gameObject)
-       Destroy(livesSprites[player_stats.getLives()].gameObject);
+        if (livesSprites[player_stats.getLives()].gameObject)
+            Destroy(livesSprites[player_stats.getLives()].gameObject);
     }
+
     void updateTime()
     {
         if (elapsed >= secondsPerMinute)
