@@ -9,14 +9,10 @@ public class MovingPlatform : MonoBehaviour
     private Vector2 original_pos;
     private bool moving_to_target = true;
 
-    private GameObject player;
-
     void Start()
     {
         original_pos = transform.position;
         relative_target = original_pos + relative_target;
-
-        player = GameObject.Find("Player");
     }
 
     void Update()
@@ -35,22 +31,5 @@ public class MovingPlatform : MonoBehaviour
             else
                 moving_to_target = true;
         }
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag != "Player")
-            return;
-
-        print("moving platform link");
-        player.transform.SetParent(transform);
-    }
-
-    void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.tag != "Player")
-            return;
-
-        player.transform.SetParent(null);
     }
 }

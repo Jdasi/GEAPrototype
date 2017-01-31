@@ -56,8 +56,9 @@ public class MovementScript : MonoBehaviour
             {
                 on_rope = false;
                 rigid_body.isKinematic = false;
+                transform.SetParent(null);
 
-				jump.Play ();
+				jump.Play();
 
                 rigid_body.gravityScale = 1;
                 GetComponent<Rigidbody2D>().AddForce(new Vector2 (0, jump_force), ForceMode2D.Impulse);
