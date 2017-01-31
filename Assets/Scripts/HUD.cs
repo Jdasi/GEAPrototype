@@ -35,12 +35,12 @@ public class HUD : MonoBehaviour {
         elapsed = 0;
         secondsPerMinute = 60;
         displayColon = true;
-        //timerText = GameObject.Find("TimerText").GetComponent<Text>();
 
         player_stats = GameObject.Find("Player").GetComponent<playerStats>();
         collectible = GameObject.Find("Collectible").GetComponent<Collectible>();
 
         collectiblesText = GameObject.Find("CollectiblesText").GetComponent<Text>();
+
         updateCountText();
     }
 	
@@ -113,19 +113,31 @@ public class HUD : MonoBehaviour {
     void displayTime()
     {
         timerText.color = Color.white;
+
         if (displayColon == true)
         {
-        timerText.text = "Time " + hours.ToString() + ":" + minutesTens.ToString() + minutes.ToString() + timeAbberivation;
+            timerText.text = "Time " + hours.ToString() + ":" + minutesTens.ToString() + minutes.ToString() + timeAbberivation;
         }
         else
         { 
-        timerText.text = "Time " + hours.ToString() + " " + minutesTens.ToString() + minutes.ToString() + timeAbberivation;
-       }
+            timerText.text = "Time " + hours.ToString() + " " + minutesTens.ToString() + minutes.ToString() + timeAbberivation;
+        }
     }
 
     void updateCountText()
     {
         collectiblesText.color = Color.white;
-        collectiblesText.text = "Items collected " + collectible.getHundreds() + collectible.getTens() + collectible.getUnits();
+        collectiblesText.text = "Items collected " + collectiblesToString();
+    }
+
+    string collectiblesToString()
+    {
+        string str = "";
+
+        str += (player_stats.getCollectibles() / 100).ToString();
+        str += (player_stats.getCollectibles() / 10).ToString();
+        str += (player_stats.getCollectibles() / 1).ToString();
+
+        return str;
     }
 }

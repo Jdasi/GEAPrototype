@@ -28,20 +28,25 @@ public class playerStats : MonoBehaviour
     {
         lives--;
     }
+
     public int getCollectibles()
     {
         return collectibles;
     }
+
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.tag != "Collectible")
+            return;
 
+        ++collectibles;
+        DestroyObject(other.gameObject);
     }
 
     public void Respawn()
     {
         if (--lives < 0)
         {
-            //Application.LoadLevel("nick");
             SceneManager.LoadScene("nick");
         }
         else
