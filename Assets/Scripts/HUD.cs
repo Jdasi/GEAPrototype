@@ -50,11 +50,9 @@ public class HUD : MonoBehaviour {
         secondsPassed += (Time.deltaTime);
         updateTime(); //Updates the time
         displayTime(); //Displays the time
-        updateLives(); //Updates the lives
-        updateCountText(); //Updates Collectibles
     }
 
-    void updateLives()
+    public void updateLives()
     {
         if (livesSprites[player_stats.getLives()].gameObject)
             Destroy(livesSprites[player_stats.getLives()].gameObject);
@@ -125,7 +123,7 @@ public class HUD : MonoBehaviour {
         }
     }
 
-    void updateCountText()
+    public void updateCountText()
     {
         collectiblesText.color = Color.white;
         collectiblesText.text = "Items collected " + collectiblesToString();

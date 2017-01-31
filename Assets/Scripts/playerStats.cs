@@ -13,12 +13,16 @@ public class playerStats : MonoBehaviour
     private GameObject active_checkpoint;
     private Vector3 respawn_position;
 
+    private HUD hud;
+
 	void Start()
     {
         player = gameObject;
         rigid_body = player.GetComponent<Rigidbody2D>();
 
 	    respawn_position = transform.position;
+
+        hud = GameObject.Find("HUDCanvas").GetComponent<HUD>();
 	}
 	
 	void Update()
@@ -43,6 +47,10 @@ public class playerStats : MonoBehaviour
 
         ++collectibles;
         DestroyObject(other.gameObject);
+        hud.updateCountText();
+
+        if (collectibles >= 4)
+            SceneManager.LoadScene("VictoryScreen");
     }
 
     public void Respawn()
@@ -57,6 +65,8 @@ public class playerStats : MonoBehaviour
         {
             transform.position = respawn_position;
         }
+
+        hud.updateLives();
     }
 
     public void setRespawnPoint(GameObject checkpoint)

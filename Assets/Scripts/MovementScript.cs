@@ -50,11 +50,13 @@ public class MovementScript : MonoBehaviour
             transform.position += transform.right * Input.GetAxis(horizontal_axis) * walk_speed * Time.deltaTime;
         }
 
-        if ((on_ground && !on_ladder) || on_rope)
+        if (on_ground || on_ladder || on_rope)
         {
             if (Input.GetKeyDown(KeyCode.Space)) 
             {
                 on_rope = false;
+                on_ladder = false;
+
                 rigid_body.isKinematic = false;
                 transform.SetParent(null);
 
