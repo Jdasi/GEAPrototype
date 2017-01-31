@@ -14,6 +14,7 @@ public class MovementScript : MonoBehaviour
 
     public Animator anim;
     public bool on_ground;
+    public bool on_ice;
 
     public GameObject rope_in_reach = null;
     private bool on_rope = false;
@@ -62,6 +63,7 @@ public class MovementScript : MonoBehaviour
                 GetComponent<Rigidbody2D>().AddForce(new Vector2 (0, jump_force), ForceMode2D.Impulse);
             }
         }
+
     }
 
     void ladder_movement()
@@ -118,4 +120,8 @@ public class MovementScript : MonoBehaviour
             transform.position += transform.up * Input.GetAxis(vertical_axis) * climb_speed * Time.deltaTime;
         }
     }
+
+
+
+
 }
