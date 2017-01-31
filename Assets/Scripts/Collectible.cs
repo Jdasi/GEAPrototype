@@ -5,23 +5,30 @@ using System.Collections;
 public class Collectible : MonoBehaviour
 {
     private int hundreds, tens, units;
-    private Text collectiblesText;
-
-	void Start()
+    void Start()
     {
         hundreds = 0;
         tens = 0;
         units = 0;
-
-        collectiblesText = GameObject.Find("CollectiblesText").GetComponent<Text>();
-        updateCountText();
-	}
+    }
 	
 	void Update()
     {
 
     }
 
+    public string getHundreds()
+    {
+        return hundreds.ToString();
+    }
+    public string getTens()
+    {
+        return tens.ToString();
+    }
+    public string getUnits()
+    {
+        return units.ToString();
+    }
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag != "Player")
@@ -40,15 +47,7 @@ public class Collectible : MonoBehaviour
                 hundreds++;
             }
         }
-
         Destroy(gameObject);
-        updateCountText();
-    }
-
-    void updateCountText()
-    {
-        collectiblesText.color = Color.white;
-        collectiblesText.text = "Items collected " + hundreds.ToString() + tens.ToString() + units.ToString();
     }
    
 }
