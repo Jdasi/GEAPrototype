@@ -13,7 +13,8 @@ public class EnemyBase : MonoBehaviour
     private int currentIndex = 0;
     private bool isWaiting = false;
     private float speedStorage = 0;
-    public playerStats pS;
+
+    private playerStats pS;
 
 
     /**
@@ -26,6 +27,8 @@ public class EnemyBase : MonoBehaviour
         {
             currentWaypoint = wayPoints[0];
         }
+
+        pS = GameObject.Find("Player").GetComponent<playerStats>();
     }
 
 
@@ -46,12 +49,10 @@ public class EnemyBase : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("Hit a collider");
         if(col.tag == "Player")
         {
             Debug.Log("hit");
             pS = col.gameObject.GetComponent<playerStats>();
-            pS.lives = (pS.lives - 1);
             pS.Respawn();
         }
     }

@@ -23,6 +23,9 @@ public class MovementScript : MonoBehaviour
 
     private Rigidbody2D rigid_body;
 
+	public AudioSource jump;
+
+
     void Start() 
     {
         anim = GetComponent<Animator>();
@@ -52,6 +55,8 @@ public class MovementScript : MonoBehaviour
             {
                 on_rope = false;
                 rigid_body.isKinematic = false;
+
+				jump.Play ();
 
                 rigid_body.gravityScale = 1;
                 GetComponent<Rigidbody2D>().AddForce(new Vector2 (0, jump_force), ForceMode2D.Impulse);

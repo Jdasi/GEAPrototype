@@ -1,30 +1,37 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class playerStats : MonoBehaviour {
+public class playerStats : MonoBehaviour
+{
     public int lives = 3;
+    public int collectibles = 0;
 
-	// Use this for initialization
-	void Start () {
-	
+    public Vector3 respawn_position;
+
+	void Start()
+    {
+	    respawn_position = transform.position;
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update()
+    {
 	    
 	}
 
-    void OnCollisionEnter2D(Collision2D col)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        //if (col.gameObject.tag == "Enemy")
-        //{
-        //    Debug.Log("hit player");
-            
-        //}
+
     }
 
     public void Respawn()
     {
-        this.transform.position = new Vector3(0.0f, -0.5f, 0.0f);
+        if (--lives < 0)
+        {
+            Application.LoadLevel("nick");
+        }
+        else
+        {
+            transform.position = respawn_position;
+        }
     }
 }
