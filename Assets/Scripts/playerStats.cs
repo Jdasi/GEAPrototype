@@ -15,7 +15,7 @@ public class playerStats : MonoBehaviour
 
     private HUD hud;
 
-	void Start()
+    void Start()
     {
         player = gameObject;
         rigid_body = player.GetComponent<Rigidbody2D>();
@@ -46,7 +46,7 @@ public class playerStats : MonoBehaviour
             return;
 
         ++collectibles;
-        DestroyObject(other.gameObject);
+        //DestroyObject(other.gameObject);
         hud.updateCountText();
 
         if (collectibles >= 4)

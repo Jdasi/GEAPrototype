@@ -35,7 +35,6 @@ public class HUD : MonoBehaviour {
         elapsed = 0;
         secondsPerMinute = 6;
         displayColon = true;
-
         player_stats = GameObject.Find("Player").GetComponent<playerStats>();
         collectible = GameObject.Find("Collectible").GetComponent<Collectible>();
 
@@ -125,6 +124,7 @@ public class HUD : MonoBehaviour {
 
     public void updateCountText()
     {
+
         collectiblesText.color = Color.white;
         collectiblesText.text = "Items collected " + collectiblesToString();
     }
