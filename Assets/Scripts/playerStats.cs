@@ -46,7 +46,7 @@ public class playerStats : MonoBehaviour
 
         if (--lives < 0)
         {
-            SceneManager.LoadScene("nick");
+            SceneManager.LoadScene("GameOver");
         }
         else
         {
