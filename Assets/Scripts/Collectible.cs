@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Collectible : MonoBehaviour
 {
     public int id = 0;
-    public AudioSource collected;
+    public AudioClip collected;
+
+	public playerStats ps;
+	public HUD hud;
 
     void Start()
     {
@@ -23,8 +27,21 @@ public class Collectible : MonoBehaviour
         {
             if (other.tag != "Player")
                 return;
-            collected.Play();
-            DestroyObject(gameObject);
+			AudioSource.PlayClipAtPoint(collected, new Vector2(0,0));
         }
+
+		if (other.tag != "Player") 
+		{
+			return;
+		}
+
+		++ps.collectibles;
+		//DestroyObject(other.gameObject);
+		hud.updateCountText();
+
+		if (ps.collectibles >= 4)
+			SceneManager.LoadScene("VictoryScreen");
+
+		DestroyObject(gameObject);
     }
 }

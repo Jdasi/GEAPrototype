@@ -5,7 +5,7 @@ using System.Collections;
 public class playerStats : MonoBehaviour
 {
     private int lives = 7;
-    private int collectibles = 0;
+    public int collectibles = 0;
 
     private GameObject player;
     private Rigidbody2D rigid_body;
@@ -38,19 +38,6 @@ public class playerStats : MonoBehaviour
     public int getCollectibles()
     {
         return collectibles;
-    }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.tag != "Collectible")
-            return;
-
-        ++collectibles;
-        //DestroyObject(other.gameObject);
-        hud.updateCountText();
-
-        if (collectibles >= 4)
-            SceneManager.LoadScene("VictoryScreen");
     }
 
     public void Respawn()
