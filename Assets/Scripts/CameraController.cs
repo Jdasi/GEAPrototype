@@ -80,7 +80,7 @@ public class CameraController : MonoBehaviour
 
 			moveTemp = character.transform.position;
 
-			moveTemp.z = -1;
+			moveTemp.z = - 5;
 
 
 

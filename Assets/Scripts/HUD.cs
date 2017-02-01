@@ -36,7 +36,7 @@ public class HUD : MonoBehaviour {
         secondsPerMinute = 6;
         displayColon = true;
         player_stats = GameObject.Find("Player").GetComponent<playerStats>();
-        collectible = GameObject.Find("Collectible").GetComponent<Collectible>();
+        //collectible = GameObject.Find("Collectible").GetComponent<Collectible>();
 
         collectiblesText = GameObject.Find("CollectiblesText").GetComponent<Text>();
 
